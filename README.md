@@ -16,3 +16,22 @@ This mobile application is made for people who want to restrict themselves to a 
 
 ## Project WireFrames
 
+Home Page
+![Home page](Wireframe/mainPage.PNG)
+
+Log In
+![Log In](Wireframe/logIn.PNG)
+
+Sign Up
+![Sign Up](Wireframe/signUp.PNG)
+
+Profile Page
+![Profile page](Wireframe/profilePage.PNG)
+
+Blog Page
+![Blog Page](Wireframe/blog.PNG)
+
+Recipes Page
+![Recipes Page](Wireframe/recipes%20page.PNG)
+
+
