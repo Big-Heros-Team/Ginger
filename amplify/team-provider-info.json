@@ -10,6 +10,11 @@
       "StackName": "amplify-ginger-dev-201755",
       "StackId": "arn:aws:cloudformation:us-west-2:590459780058:stack/amplify-ginger-dev-201755/388299b0-0e6d-11ec-b10a-06f2b9198e79",
       "AmplifyAppId": "dhu05ee8hpd7i"
+    },
+    "categories": {
+      "auth": {
+        "gingeracb664be": {}
+      }
     }
   }
 }
