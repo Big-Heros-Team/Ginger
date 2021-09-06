@@ -20,15 +20,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FilterActivity extends AppCompatActivity {
     private final String apiKey = "11e60bd17b7648619ed45bb0dbf4e838";
-    private String query = "pasta";
-    private String number = "5";
+    private String query;
+    private String maxReadyTime;
     private String cuisine;
     private String diet;
+    private String minCalories;
+    private String maxCalories;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+
+        // Meal Types spinner
+        Spinner mealTypes = findViewById(R.id.mealTypesSpinner);
+        String[] mealType = new String[]{"",
+                "main course", "side dish", "dessert",
+                "appetizer", "salad", "bread",
+                "breakfast", "soup", "beverage", "sauce",
+                "marinade", "fingerfood", "snack", "drink"
+        };
+
+        ArrayAdapter<String> mealTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mealType);
+        mealTypes.setAdapter(mealTypesAdapter);
+
 
         // Cuisines spinner
         Spinner cuisinesList = findViewById(R.id.CuisinesSpinner);
@@ -66,12 +82,23 @@ public class FilterActivity extends AppCompatActivity {
                 Spinner dietSpinner = (Spinner) findViewById(R.id.dietSpinner);
                 diet = dietSpinner.getSelectedItem().toString();
 
-                Log.i("spinner", "onClick: " + cuisine + "  -  " + diet);
+                Log.i("spinner", "cuisine: " + cuisine + "  -  diet: " + diet);
 
 
                 // get query
                 query = ((EditText) findViewById(R.id.queryName)).getText().toString();
-                Log.i("TAG", "onClick: " + query);
+                Log.i("TAG", "query: " + query);
+
+                // get cooking time
+                maxReadyTime = ((EditText) findViewById(R.id.maxReadyTime)).getText().toString();
+                Log.i("TAG", "maxReadyTime: " + maxReadyTime);
+
+
+                // get Calories Range
+                minCalories = ((EditText) findViewById(R.id.minCalories)).getText().toString();
+                maxCalories = ((EditText) findViewById(R.id.maxCalories)).getText().toString();
+                Log.i("TAG", minCalories + "--" + maxCalories);
+
 
                 getFilteredMealsFromApi();
             }
@@ -96,7 +123,14 @@ public class FilterActivity extends AppCompatActivity {
 
         FoodApi foodApi = retrofit.create(FoodApi.class);
 
-        Call<Results> mealsListCall = foodApi.getResults(apiKey, query, diet, cuisine);
+        Call<Results> mealsListCall = foodApi.getResults(
+                apiKey,
+                query,
+                diet,
+                cuisine,
+                maxReadyTime,
+                minCalories,
+                maxCalories);
 
         mealsListCall.enqueue(new Callback<Results>() {
             @Override
@@ -110,7 +144,7 @@ public class FilterActivity extends AppCompatActivity {
                     Log.i("FilterAPI", "nothing found: ");
 
                 } else {
-                    Log.i("FilterAPI", "onSuccessful: " + mealsList.getResults().get(0).getTitle());
+                    Log.i("FilterAPI", "onSuccessful: " + mealsList.getResults().size());
                 }
             }
 
@@ -120,6 +154,5 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

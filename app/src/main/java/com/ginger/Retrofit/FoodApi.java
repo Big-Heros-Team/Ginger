@@ -23,7 +23,14 @@ public interface FoodApi {
     Call<MealDetailsList> getMealById(@Query("i") String mealId);
 
     @GET("complexSearch")
-    Call<Results> getResults(@Query("apiKey") String apiKey, @Query("query") String query,@Query("diet") String diet, @Query("cuisine") String cuisine);
+    Call<Results> getResults(@Query("apiKey") String apiKey,
+                             @Query("query") String query,
+                             @Query("diet") String diet,
+                             @Query("cuisine") String cuisine,
+                             @Query("maxReadyTime") String maxReadyTime,
+                             @Query("minCalories") String minCalories,
+                             @Query("maxCalories") String maxCalories
+    );
 
 
 //    @GET("complexSearch")
