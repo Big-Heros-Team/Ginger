@@ -14,7 +14,6 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.ginger.Entities.CategoryList;
-import com.ginger.Entities.MealDetails;
 import com.ginger.Entities.MealDetailsList;
 import com.ginger.Entities.MealsList;
 import com.ginger.Retrofit.FoodApi;
@@ -118,10 +117,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //>>>>>>>>>>>>>>>>>> Add by Aseel to test the CategoryMealsActivity <<<<<<<<<<<<<<<
-        findViewById(R.id.aseelActivity).setOnClickListener(view -> {
+        //>>>>>>>>>>>>>>>>>> Add by Aseel <<<<<<<<<<<<<<<
+        // CategoryMealsActivity
+        findViewById(R.id.categoryMealsActivity).setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, CategoryMealsActivity.class);
             intent.putExtra("category", "Chicken");
+            startActivity(intent);
+        });
+
+        // Go to filter activity
+        findViewById(R.id.filterActivity).setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, FilterActivity.class);
             startActivity(intent);
         });
         //>>>>>>>>>>>>>>>>>>

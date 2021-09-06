@@ -17,11 +17,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/aseelActivity"
+        android:id="@+id/categoryMealsActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aseel Activity"
+        android:text="category meals list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/filterActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="filter recipes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
