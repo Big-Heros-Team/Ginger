@@ -116,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        //>>>>>>>>>>>>>>>>>> Add by Aseel to test the CategoryMealsActivity <<<<<<<<<<<<<<<
+        findViewById(R.id.aseelActivity).setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, CategoryMealsActivity.class);
+            intent.putExtra("category", "Chicken");
+            startActivity(intent);
+        });
+        //>>>>>>>>>>>>>>>>>>
     }
 
     public void amplifyConfig(){
