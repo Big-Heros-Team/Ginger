@@ -37,4 +37,16 @@ public class MealDetails {
     public String getStrInstructions() {
         return strInstructions;
     }
+
+    public String getStrMealThumb() {
+        return strMealThumb;
+    }
+
+    public String getStrYoutube() {
+        return strYoutube;
+    }
+
+    public String getStrSource() {
+        return strSource;
+    }
 }
