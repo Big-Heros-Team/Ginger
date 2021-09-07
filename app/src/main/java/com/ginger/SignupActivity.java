@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -15,10 +16,15 @@ import com.amplifyframework.core.Amplify;
 
 public class SignupActivity extends AppCompatActivity {
 
+    LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        loadingDialog = new LoadingDialog(SignupActivity.this);
+
 
         TextView textView = findViewById(R.id.textView10);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +43,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
         findViewById(R.id.signUpBtn).setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
 
                 if( email.getText().toString().trim().equals(""))
                 {
@@ -58,12 +66,25 @@ public class SignupActivity extends AppCompatActivity {
                             username.getText().toString(),
                             password.getText().toString());
 
+
                     Intent intent = new Intent(SignupActivity.this, ConfirmActivity.class);
                     intent.putExtra("username",username.getText().toString());
                     startActivity(intent);
+
+
                 }
+                loadingDialog.startLoadingDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingDialog.dismissDialog();
+                    }
+                },5000);
 
             }
+
+
         });
 
         findViewById(R.id.textView10).setOnClickListener(new View.OnClickListener() {
