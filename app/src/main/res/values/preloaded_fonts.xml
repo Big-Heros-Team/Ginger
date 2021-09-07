@@ -3,5 +3,9 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/bungee</item>
         <item>@font/bungee_hairline</item>
+        <item>@font/lobster</item>
     </array>
 </resources>
+
+
+
