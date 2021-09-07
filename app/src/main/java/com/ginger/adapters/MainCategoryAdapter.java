@@ -52,9 +52,9 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
             String uri = "@drawable/" + item.getStrCategory().toLowerCase(Locale.ROOT);
             int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
 
-            Drawable res = context.getResources().getDrawable(imageResource);
-//            Picasso.with(context).load(imageResource).noFade().into(holder.image);
-            holder.image.setImageDrawable(res);
+//            Drawable res = context.getResources().getDrawable(imageResource);
+            Picasso.with(context).load(imageResource).resize(500,500).into(holder.image);
+//            holder.image.setImageDrawable(res);
         }
 
 

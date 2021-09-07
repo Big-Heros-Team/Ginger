@@ -38,14 +38,14 @@
                 android:id="@+id/tv_dish_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Dish Name"
-                android:textSize="@dimen/_22ssp"
-                android:textColor="@color/white"
+                android:fontFamily="@font/merienda_one"
                 android:gravity="center"
                 android:maxEms="10"
                 android:maxLines="2"
-                android:fontFamily="@font/gilroy_bold"
-                android:padding="@dimen/_10sdp"/>
+                android:padding="@dimen/_10sdp"
+                android:text="Dish Name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22ssp" />
         </RelativeLayout>
 
 
