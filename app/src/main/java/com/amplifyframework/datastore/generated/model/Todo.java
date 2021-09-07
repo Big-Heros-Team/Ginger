@@ -23,9 +23,11 @@ public final class Todo implements Model {
   public static final QueryField ID = field("Todo", "id");
   public static final QueryField NAME = field("Todo", "name");
   public static final QueryField DESCRIPTION = field("Todo", "description");
+  public static final QueryField PHOTO_KEY = field("Todo", "photoKey");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
   private final @ModelField(targetType="String") String description;
+  private final @ModelField(targetType="String") String photoKey;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -40,6 +42,10 @@ public final class Todo implements Model {
       return description;
   }
   
+  public String getPhotoKey() {
+      return photoKey;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -48,10 +54,11 @@ public final class Todo implements Model {
       return updatedAt;
   }
   
-  private Todo(String id, String name, String description) {
+  private Todo(String id, String name, String description, String photoKey) {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.photoKey = photoKey;
   }
   
   @Override
@@ -65,6 +72,7 @@ public final class Todo implements Model {
       return ObjectsCompat.equals(getId(), todo.getId()) &&
               ObjectsCompat.equals(getName(), todo.getName()) &&
               ObjectsCompat.equals(getDescription(), todo.getDescription()) &&
+              ObjectsCompat.equals(getPhotoKey(), todo.getPhotoKey()) &&
               ObjectsCompat.equals(getCreatedAt(), todo.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), todo.getUpdatedAt());
       }
@@ -76,6 +84,7 @@ public final class Todo implements Model {
       .append(getId())
       .append(getName())
       .append(getDescription())
+      .append(getPhotoKey())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -89,6 +98,7 @@ public final class Todo implements Model {
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
+      .append("photoKey=" + String.valueOf(getPhotoKey()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -121,6 +131,7 @@ public final class Todo implements Model {
     return new Todo(
       id,
       null,
+      null,
       null
     );
   }
@@ -128,7 +139,8 @@ public final class Todo implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       name,
-      description);
+      description,
+      photoKey);
   }
   public interface NameStep {
     BuildStep name(String name);
@@ -139,6 +151,7 @@ public final class Todo implements Model {
     Todo build();
     BuildStep id(String id) throws IllegalArgumentException;
     BuildStep description(String description);
+    BuildStep photoKey(String photoKey);
   }
   
 
@@ -146,6 +159,7 @@ public final class Todo implements Model {
     private String id;
     private String name;
     private String description;
+    private String photoKey;
     @Override
      public Todo build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -153,7 +167,8 @@ public final class Todo implements Model {
         return new Todo(
           id,
           name,
-          description);
+          description,
+          photoKey);
     }
     
     @Override
@@ -169,22 +184,40 @@ public final class Todo implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep photoKey(String photoKey) {
+        this.photoKey = photoKey;
+        return this;
+    }
+    
     /** 
+     * WARNING: Do not set ID when creating a new object. Leave this blank and one will be auto generated for you.
+     * This should only be set when referring to an already existing object.
      * @param id id
      * @return Current Builder instance, for fluent method chaining
+     * @throws IllegalArgumentException Checks that ID is in the proper format
      */
-    public BuildStep id(String id) {
+    public BuildStep id(String id) throws IllegalArgumentException {
         this.id = id;
+        
+        try {
+            UUID.fromString(id); // Check that ID is in the UUID format - if not an exception is thrown
+        } catch (Exception exception) {
+          throw new IllegalArgumentException("Model IDs must be unique in the format of UUID.",
+                    exception);
+        }
+        
         return this;
     }
   }
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name, String description) {
+    private CopyOfBuilder(String id, String name, String description, String photoKey) {
       super.id(id);
       super.name(name)
-        .description(description);
+        .description(description)
+        .photoKey(photoKey);
     }
     
     @Override
@@ -195,6 +228,11 @@ public final class Todo implements Model {
     @Override
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
+    }
+    
+    @Override
+     public CopyOfBuilder photoKey(String photoKey) {
+      return (CopyOfBuilder) super.photoKey(photoKey);
     }
   }
   

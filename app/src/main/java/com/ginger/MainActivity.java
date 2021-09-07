@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.ginger.Entities.CategoryList;
 import com.ginger.Entities.MealDetails;
 import com.ginger.Entities.MealDetailsList;
@@ -112,14 +114,32 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
-    }
+        // profile button
+        Button profileB= findViewById(R.id.profileButton);
+        profileB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if (Amplify.Auth.getCurrentUser() != null){
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                }else{
+
+                    Toast.makeText(MainActivity.this, "Login Please",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
     public void amplifyConfig(){
         try {
+            Amplify.addPlugin(new AWSS3StoragePlugin());
+
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
