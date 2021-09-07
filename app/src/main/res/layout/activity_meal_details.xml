@@ -1,82 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealDetailsActivity">
+    tools:context=".MealDetailsActivity"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.percentlayout.widget.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/relativeLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="117dp"
-        android:background="#fece2f"
-        android:padding="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/category"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+       >
+        
+        <ImageView
             android:id="@+id/imageView"
-            android:layout_width="200dp"
-            android:layout_height="250dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+
+            />
+
+        <TextView
+            android:id="@+id/ingredients"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/R"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="3dp"
-            app:layout_constraintVertical_bias="0.033" />
-    </RelativeLayout>
+            android:text="HIIII"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="33%"
+           />
 
-    <TextView
-        android:id="@+id/mealTitle"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/cuisine"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/ingredients"
+            android:layout_marginLeft="10dp"
+            android:text="HIIII"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="33%"
+            />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/cuisine"
+            android:layout_marginLeft="10dp"
+            android:text="HIIII"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="33%"
+            />
+    </androidx.percentlayout.widget.PercentRelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ingredients"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="378dp"
-        android:height="70dp"
-        android:fontFamily="@font/bungee_inline"
-        android:text="TextView"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
-
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="384dp"
-        android:background="@drawable/mybutton"
-        android:fontFamily="@font/bungee"
-        android:paddingHorizontal="2dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/area"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/mybutton"
-        android:fontFamily="@font/bungee"
-        android:paddingHorizontal="2dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/category"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/category" />
+        android:layout_margin="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:orientation="vertical"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_rv_main_category" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

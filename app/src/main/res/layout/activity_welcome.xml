@@ -13,7 +13,7 @@
         android:contentDescription="@string/background"
         android:foreground="@drawable/foreground"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher_bg"
+        android:src="@drawable/bg2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

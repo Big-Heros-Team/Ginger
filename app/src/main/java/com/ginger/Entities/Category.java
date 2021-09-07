@@ -10,6 +10,8 @@ public class Category {
 
     private String strCategoryDescription;
 
+    private String imagePath;
+
     public int getIdCategory() {
         return idCategory;
     }
