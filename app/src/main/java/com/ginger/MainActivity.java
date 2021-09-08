@@ -1,5 +1,6 @@
 package com.ginger;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,6 +24,7 @@ import com.ginger.Entities.MealsList;
 import com.ginger.Retrofit.FoodApi;
 import com.ginger.adapters.MainCategoryAdapter;
 import com.ginger.adapters.MealAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
 
@@ -50,6 +53,27 @@ public class MainActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(MainActivity.this);
 
         loadingDialog.startLoadingDialog();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.item1);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.item1:
+                        return true;
+                    case R.id.item2:
+                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+//                    case R.id.item3:
+//                        return true;
+                }
+                return false;
+            }
+        });
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
