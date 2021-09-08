@@ -1,27 +1,58 @@
 # this is an auto generated file. This will be overwritten
-query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+query GetBlog($id: ID!) {
+  getBlog(id: $id) {
     id
-    name
-    description
-    photoKey
+    title
+    body
+    userName
     createdAt
     updatedAt
   }
 }
-query ListTodos(
-  $filter: ModelTodoFilterInput
+query ListBlogs(
+  $filter: ModelBlogFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
-      description
-      photoKey
+      title
+      body
+      userName
       createdAt
       updatedAt
+    }
+    nextToken
+  }
+}
+query GetRecipe($id: ID!) {
+  getRecipe(id: $id) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+query ListRecipes(
+  $filter: ModelRecipeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRecipes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      recipeID
+      name
+      photo
+      owner
+      createdAt
+      updatedAt
+      version
     }
     nextToken
   }

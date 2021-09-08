@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lobster"
                 android:text="All Recipes"
@@ -44,6 +44,12 @@
                 android:orientation="horizontal"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_rv_sub_category" />
+
+            <Button
+                android:id="@+id/blogBut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blog" />
 
 
         </LinearLayout>

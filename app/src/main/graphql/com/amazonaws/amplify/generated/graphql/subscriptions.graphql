@@ -1,31 +1,67 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateTodo {
-  onCreateTodo {
+subscription OnCreateBlog {
+  onCreateBlog {
     id
-    name
-    description
-    photoKey
+    title
+    body
+    userName
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateTodo {
-  onUpdateTodo {
+subscription OnUpdateBlog {
+  onUpdateBlog {
     id
-    name
-    description
-    photoKey
+    title
+    body
+    userName
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteTodo {
-  onDeleteTodo {
+subscription OnDeleteBlog {
+  onDeleteBlog {
     id
-    name
-    description
-    photoKey
+    title
+    body
+    userName
     createdAt
     updatedAt
+  }
+}
+subscription OnCreateRecipe($owner: String) {
+  onCreateRecipe(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+subscription OnUpdateRecipe($owner: String) {
+  onUpdateRecipe(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+subscription OnDeleteRecipe($owner: String) {
+  onDeleteRecipe(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
   }
 }

@@ -110,6 +110,8 @@ public class Splash_screen extends AppCompatActivity {
 
     public void amplifyConfig(){
         try {
+            Amplify.addPlugin(new AWSS3StoragePlugin());
+
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());

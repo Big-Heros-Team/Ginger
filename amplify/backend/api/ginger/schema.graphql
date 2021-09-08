@@ -10,3 +10,12 @@ photo:String!
 owner : String!
 
 }
+type Blog @model{
+  id:ID!
+  title:String
+  body:String
+  userName:String
+  createdAt:String
+
+}
+
