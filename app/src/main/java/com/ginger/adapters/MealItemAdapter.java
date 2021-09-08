@@ -1,4 +1,4 @@
-package com.ginger;
+package com.ginger.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,13 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ginger.R;
 import com.ginger.filter.MealItem;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class MealItemAdapter extends RecyclerView.Adapter<MealItemAdapter.ViewHolder>{
+public class MealItemAdapter extends RecyclerView.Adapter<MealItemAdapter.ViewHolder> {
     Bitmap bitmap;
 
     private final List<MealItem> meals;

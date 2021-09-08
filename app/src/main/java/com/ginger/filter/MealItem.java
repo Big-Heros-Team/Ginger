@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 public class MealItem {
 
     @SerializedName("id")
-    private Long mealItemId;
+    private String mealItemId;
     private String title;
     private String image;
 
-    public Long getMealItemId() {
+    public String getMealItemId() {
         return mealItemId;
     }
 

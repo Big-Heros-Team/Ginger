@@ -10,17 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.ginger.Retrofit.FoodApi;
-import com.ginger.filter.Results;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class FilterActivity extends AppCompatActivity {
     private String ingredients;
+    private String SelectedMealType;
     private String maxReadyTime;
     private String cuisine;
     private String diet;
@@ -74,9 +66,13 @@ public class FilterActivity extends AppCompatActivity {
         findViewById(R.id.filtering).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get cuisines
+                // Meal Types spinner
                 Spinner cuisinesSpinner = (Spinner) findViewById(R.id.CuisinesSpinner);
                 cuisine = cuisinesSpinner.getSelectedItem().toString();
+
+                // get cuisines
+                Spinner mealTypesSpinner = (Spinner) findViewById(R.id.mealTypesSpinner);
+                SelectedMealType = mealTypesSpinner.getSelectedItem().toString();
 
                 // get diet
                 Spinner dietSpinner = (Spinner) findViewById(R.id.dietSpinner);
@@ -88,13 +84,10 @@ public class FilterActivity extends AppCompatActivity {
                 ingredients = ((EditText) findViewById(R.id.ingredients)).getText().toString();
                 Log.i("TAG", "query: " + ingredients);
 
-                if (ingredients == "comma-separated list") {
-                    ingredients = "";
-                }
 
                 // get cooking time
                 maxReadyTime = ((EditText) findViewById(R.id.maxReadyTime)).getText().toString();
-                if (maxReadyTime.equals("Time in minutes")) {
+                if (maxReadyTime.equals("")) {
                     maxReadyTime = "9999";
                 }
                 Log.i("TAG", "maxReadyTime: " + maxReadyTime);
@@ -105,17 +98,17 @@ public class FilterActivity extends AppCompatActivity {
                 maxCalories = ((EditText) findViewById(R.id.maxCalories)).getText().toString();
                 Log.i("TAG", minCalories + "--" + maxCalories);
 
-                if (minCalories.equals("min")) {
+                if (minCalories.equals("")) {
                     minCalories = "0";
                 }
-                if (maxCalories.equals("max")) {
+                if (maxCalories.equals("")) {
                     maxCalories = "9999999999999";
                 }
 
-//                getFilteredMealsFromApi();
-
+                //go to show meal details
                 Intent goToShowFilteredMeals = new Intent(FilterActivity.this, ShowFilteredMealsActivity.class);
                 goToShowFilteredMeals.putExtra("ingredients", ingredients);
+                goToShowFilteredMeals.putExtra("mealType", SelectedMealType);
                 goToShowFilteredMeals.putExtra("maxReadyTime", maxReadyTime);
                 goToShowFilteredMeals.putExtra("cuisine", cuisine);
                 goToShowFilteredMeals.putExtra("diet", diet);
@@ -128,47 +121,5 @@ public class FilterActivity extends AppCompatActivity {
 
     }
 
-
-    public void getFilteredMealsFromApi() {
-        // Get Meals
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spoonacular.com/recipes/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        FoodApi foodApi = retrofit.create(FoodApi.class);
-
-        String apiKey = "11e60bd17b7648619ed45bb0dbf4e838";
-        Call<Results> mealsListCall = foodApi.getResults(
-                apiKey,
-                ingredients,
-                diet,
-                cuisine,
-                maxReadyTime,
-                minCalories,
-                maxCalories);
-
-        mealsListCall.enqueue(new Callback<Results>() {
-            @Override
-            public void onResponse(Call<Results> call, Response<Results> response) {
-                if (!response.isSuccessful()) {
-                    Log.i("FilterAPI", "unSuccessful: " + response.code());
-                    return;
-                }
-                Results mealsList = response.body();
-                if (mealsList.getResults().size() == 0) {
-                    Log.i("FilterAPI", "nothing found: ");
-
-                } else {
-                    Log.i("FilterAPI", "onSuccessful: " + mealsList.getResults().get(0).getTitle());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Results> call, Throwable t) {
-                Log.i("FilterAPI", "onFailure: " + t.getMessage());
-            }
-        });
-    }
 
 }

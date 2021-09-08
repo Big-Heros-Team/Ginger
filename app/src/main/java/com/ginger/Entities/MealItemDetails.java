@@ -1,6 +1,6 @@
 package com.ginger.Entities;
 
-public class MealDetails {
+public class MealItemDetails {
 
     private String idMeal;
 

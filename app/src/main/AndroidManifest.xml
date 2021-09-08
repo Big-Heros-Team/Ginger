@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ginger">
         <activity
+            android:name=".NoResultFoundActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShowFilteredMealsActivity"
             android:exported="true" />
         <activity
@@ -19,9 +22,6 @@
             android:exported="true" />
         <activity
             android:name=".FilterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CategoryMealsActivity"
             android:exported="true" />
         <activity
             android:name=".ConfirmActivity"

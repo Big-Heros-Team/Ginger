@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.ginger.Retrofit.FoodApi;
+import com.ginger.adapters.MealItemAdapter;
 import com.ginger.filter.Results;
 
 import retrofit2.Call;
@@ -21,6 +22,7 @@ public class ShowFilteredMealsActivity extends AppCompatActivity {
     private MealItemAdapter adapter;
 
     private String ingredients;
+    private String mealType;
     private String maxReadyTime;
     private String cuisine;
     private String diet;
@@ -36,6 +38,7 @@ public class ShowFilteredMealsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ingredients = intent.getExtras().getString("ingredients");
         maxReadyTime = intent.getExtras().getString("maxReadyTime");
+        mealType = intent.getExtras().getString("mealType");
         cuisine = intent.getExtras().getString("cuisine");
         diet = intent.getExtras().getString("diet");
         minCalories = intent.getExtras().getString("minCalories");
@@ -58,10 +61,11 @@ public class ShowFilteredMealsActivity extends AppCompatActivity {
 
         FoodApi foodApi = retrofit.create(FoodApi.class);
 
-        String apiKey = "11e60bd17b7648619ed45bb0dbf4e838";
+        String apiKey = "fb01023c94494c8dae6a1c8cd02b9e1c";
         Call<Results> mealsListCall = foodApi.getResults(
                 apiKey,
                 ingredients,
+                mealType,
                 diet,
                 cuisine,
                 maxReadyTime,
@@ -78,9 +82,12 @@ public class ShowFilteredMealsActivity extends AppCompatActivity {
                 Results mealsList = response.body();
                 if (mealsList.getResults().size() == 0) {
                     Log.i("Show Filter API", "nothing found: ");
+                    //todo: go to no result
+                    Intent goToNoResultFoundActivity = new Intent(ShowFilteredMealsActivity.this, NoResultFoundActivity.class);
+                    startActivity(goToNoResultFoundActivity);
                 } else {
                     //todo: create recycle view here
-                    createMealsItemRecyclerView( mealsList);
+                    createMealsItemRecyclerView(mealsList);
                     Log.i("Show Filter API", "onSuccessful: " + mealsList.getResults().get(0).getTitle());
                     Log.i("Show Filter API", "onSuccessful: " + mealsList.getResults().size());
                 }
@@ -101,12 +108,13 @@ public class ShowFilteredMealsActivity extends AppCompatActivity {
         adapter = new MealItemAdapter(mealsList.getResults(), new MealItemAdapter.OnMealItemClickListener() {
             @Override
             public void onItemClicked(int position) {
+                String id = mealsList.getResults().get(position).getMealItemId();
                 Log.i("onItemClicked -> ", mealsList.getResults().get(position).getTitle());
-                Intent goToDetailsIntent = new Intent(getApplicationContext(), MainActivity.class);
-                goToDetailsIntent.putExtra("mealName", mealsList.getResults().get(position).getTitle());
-                goToDetailsIntent.putExtra("mealId", mealsList.getResults().get(position).getMealItemId());
-                goToDetailsIntent.putExtra("mealImage", mealsList.getResults().get(position).getImage());
-                startActivity(goToDetailsIntent);
+                Log.i("onItemClicked -> ", id);
+
+                Intent goToMealDetailsActivity = new Intent(ShowFilteredMealsActivity.this, MealItemDetailsActivity.class);
+                goToMealDetailsActivity.putExtra("id", id);
+                startActivity(goToMealDetailsActivity);
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
