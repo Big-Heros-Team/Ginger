@@ -67,17 +67,35 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.item1:
                         return true;
                     case R.id.item2:
-                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        else  {
+                            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                            break;
+                        }
                     case R.id.item3:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        else  {
+                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                            break;
+                        }
                     case R.id.item4:
-                        startActivity(new Intent(getApplicationContext(), BlogActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), BlogActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        else   {
+                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                            break;
+                        }
                     case R.id.item5:
                         startActivity(new Intent(getApplicationContext(), FilterActivity.class));
                         overridePendingTransition(0,0);

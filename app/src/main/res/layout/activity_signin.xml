@@ -120,6 +120,8 @@
         app:layout_constraintTop_toBottomOf="@+id/signinBtn"
         app:layout_constraintVertical_bias="0.353" />
 
+
+
     <TextView
         android:id="@+id/textfromSignInToReg"
         android:layout_width="wrap_content"
@@ -136,6 +138,8 @@
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/signinBtn"
         app:layout_constraintVertical_bias="0.311" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

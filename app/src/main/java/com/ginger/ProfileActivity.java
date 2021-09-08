@@ -114,15 +114,26 @@ public class ProfileActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.item2:
-                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item3:
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item4:
-                        startActivity(new Intent(getApplicationContext(), BlogActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), BlogActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item5:
                         startActivity(new Intent(getApplicationContext(), FilterActivity.class));
                         overridePendingTransition(0,0);
@@ -131,6 +142,15 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        findViewById(R.id.logout).setOnClickListener(view -> {
+            Amplify.Auth.signOut(
+                    () -> startActivity(new Intent(getApplicationContext(), SignInActivity.class)),
+                    error -> Log.e("AuthQuickstart", error.toString())
+            );
+
+        });
+
 
          image= findViewById(R.id.image);
         downloadFile(Amplify.Auth.getCurrentUser().getUsername(),image);

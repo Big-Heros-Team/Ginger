@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.amplifyframework.core.Amplify;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FilterActivity extends AppCompatActivity {
@@ -57,18 +58,28 @@ public class FilterActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.item2:
-                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                      else  startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item3:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                      else  startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item4:
-                        startActivity(new Intent(getApplicationContext(), BlogActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                        if (Amplify.Auth.getCurrentUser()!=null) {
+                            startActivity(new Intent(getApplicationContext(), BlogActivity.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
+                   else     startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     case R.id.item5:
+
                         return true;
                 }
                 return false;
