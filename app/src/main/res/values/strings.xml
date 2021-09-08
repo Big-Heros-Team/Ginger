@@ -13,4 +13,7 @@
     <string name="sign_in">Sign in</string>
     <string name="verification_code">Verification Code</string>
     <string name="loading">Loading ...</string>
+
+    <string name="twitterUsername">\@joeytribbiani</string>
+
 </resources>
