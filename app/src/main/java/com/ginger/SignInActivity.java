@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -13,10 +14,16 @@ import com.amplifyframework.core.Amplify;
 
 public class SignInActivity extends AppCompatActivity {
 
+    LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
+        loadingDialog = new LoadingDialog(SigninActivity.this);
+
+
 
         TextView textView = findViewById(R.id.textfromSignInToReg);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +64,20 @@ public class SignInActivity extends AppCompatActivity {
                     password.getText().clear();
                 }
 
+                loadingDialog.startLoadingDialog();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingDialog.dismissDialog();
+                    }
+                },5000);
+
+
             }
+
         });
+
     }
 
     public void signing(String username, String password){
