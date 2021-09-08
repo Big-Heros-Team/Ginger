@@ -2,6 +2,7 @@ package com.ginger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,8 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FilterActivity extends AppCompatActivity {
-    private final String apiKey = "11e60bd17b7648619ed45bb0dbf4e838";
-    private String query;
+    private String ingredients;
     private String maxReadyTime;
     private String cuisine;
     private String diet;
@@ -84,13 +84,19 @@ public class FilterActivity extends AppCompatActivity {
 
                 Log.i("spinner", "cuisine: " + cuisine + "  -  diet: " + diet);
 
+                // get ingredients
+                ingredients = ((EditText) findViewById(R.id.ingredients)).getText().toString();
+                Log.i("TAG", "query: " + ingredients);
 
-                // get query
-                query = ((EditText) findViewById(R.id.queryName)).getText().toString();
-                Log.i("TAG", "query: " + query);
+                if (ingredients == "comma-separated list") {
+                    ingredients = "";
+                }
 
                 // get cooking time
                 maxReadyTime = ((EditText) findViewById(R.id.maxReadyTime)).getText().toString();
+                if (maxReadyTime.equals("Time in minutes")) {
+                    maxReadyTime = "9999";
+                }
                 Log.i("TAG", "maxReadyTime: " + maxReadyTime);
 
 
@@ -99,20 +105,29 @@ public class FilterActivity extends AppCompatActivity {
                 maxCalories = ((EditText) findViewById(R.id.maxCalories)).getText().toString();
                 Log.i("TAG", minCalories + "--" + maxCalories);
 
+                if (minCalories.equals("min")) {
+                    minCalories = "0";
+                }
+                if (maxCalories.equals("max")) {
+                    maxCalories = "9999999999999";
+                }
 
-                getFilteredMealsFromApi();
+//                getFilteredMealsFromApi();
+
+                Intent goToShowFilteredMeals = new Intent(FilterActivity.this, ShowFilteredMealsActivity.class);
+                goToShowFilteredMeals.putExtra("ingredients", ingredients);
+                goToShowFilteredMeals.putExtra("maxReadyTime", maxReadyTime);
+                goToShowFilteredMeals.putExtra("cuisine", cuisine);
+                goToShowFilteredMeals.putExtra("diet", diet);
+                goToShowFilteredMeals.putExtra("minCalories", minCalories);
+                goToShowFilteredMeals.putExtra("maxCalories", maxCalories);
+                startActivity(goToShowFilteredMeals);
+
             }
         });
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        getFilteredMealsFromApi();
-
-    }
 
     public void getFilteredMealsFromApi() {
         // Get Meals
@@ -123,9 +138,10 @@ public class FilterActivity extends AppCompatActivity {
 
         FoodApi foodApi = retrofit.create(FoodApi.class);
 
+        String apiKey = "11e60bd17b7648619ed45bb0dbf4e838";
         Call<Results> mealsListCall = foodApi.getResults(
                 apiKey,
-                query,
+                ingredients,
                 diet,
                 cuisine,
                 maxReadyTime,
@@ -144,7 +160,7 @@ public class FilterActivity extends AppCompatActivity {
                     Log.i("FilterAPI", "nothing found: ");
 
                 } else {
-                    Log.i("FilterAPI", "onSuccessful: " + mealsList.getResults().size());
+                    Log.i("FilterAPI", "onSuccessful: " + mealsList.getResults().get(0).getTitle());
                 }
             }
 

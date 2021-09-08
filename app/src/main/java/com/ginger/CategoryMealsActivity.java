@@ -56,7 +56,9 @@ public class CategoryMealsActivity extends AppCompatActivity {
                     return;
                 }
                 MealsList mealsList = response.body();
+
                 createMealsRecyclerView( mealsList);
+
                 Log.i("API", "onSuccessful: " + mealsList.getMeals().get(0).getStrMeal());
             }
 
@@ -69,7 +71,7 @@ public class CategoryMealsActivity extends AppCompatActivity {
 
 
     public void createMealsRecyclerView(MealsList mealsList) {
-        RecyclerView mealsRecyclerView = findViewById(R.id.categoryMealsList);
+        RecyclerView mealsRecyclerView = findViewById(R.id.ingredientsMealList);
         adapter = new MealAdapter(mealsList.getMeals(), new MealAdapter.OnTaskItemClickListener() {
             @Override
             public void onItemClicked(int position) {
