@@ -49,7 +49,7 @@
     }
   },
   "storage": {
-    "s3a8f8ebbd": {
+    "s38959a920": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }

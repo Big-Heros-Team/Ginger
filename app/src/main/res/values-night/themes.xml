@@ -3,7 +3,7 @@
     <style name="Theme.Ginger" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimaryDark">@color/hintTextColor</item>
         <item name="colorAccent">@color/brown</item>
         <!-- Customize your theme here. -->
     </style>
