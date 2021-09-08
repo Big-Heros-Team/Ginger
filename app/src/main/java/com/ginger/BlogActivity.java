@@ -1,5 +1,6 @@
 package com.ginger;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,7 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -22,6 +25,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Blog;
 import com.amplifyframework.datastore.generated.model.Todo;
 import com.ginger.adapters.BlogsAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -47,12 +51,43 @@ public class BlogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_blog);
 
         // fetch all blogs datat from dynamoDB
         getDataFromApi();
 
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.item4);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.item1:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item2:
+                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item3:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item4:
+                        return true;
+                    case R.id.item5:
+                        startActivity(new Intent(getApplicationContext(), FilterActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
         addBlogButton = findViewById(R.id.blogBtn);
         addBlogButton.setOnClickListener(new View.OnClickListener() {
             @Override

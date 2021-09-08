@@ -15,7 +15,7 @@
     <item
         android:id="@+id/item4"
         android:title="Blogs"
-        android:icon="@drawable/ic_user" />
+        android:icon="@drawable/ic_blogging" />
     <item
         android:id="@+id/item5"
         android:title="Search"

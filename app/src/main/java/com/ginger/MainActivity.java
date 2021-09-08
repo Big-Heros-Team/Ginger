@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-//                    case R.id.item4:
-//                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
+                    case R.id.item4:
+                        startActivity(new Intent(getApplicationContext(), BlogActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.item5:
                         startActivity(new Intent(getApplicationContext(), FilterActivity.class));
                         overridePendingTransition(0,0);

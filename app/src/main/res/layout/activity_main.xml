@@ -45,13 +45,6 @@
                 tools:itemCount="1"
                 tools:listitem="@layout/item_rv_sub_category" />
 
-            <Button
-                android:id="@+id/blogBut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Blog" />
-
-
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

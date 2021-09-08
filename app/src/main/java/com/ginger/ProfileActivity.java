@@ -118,6 +118,56 @@ public class ProfileActivity extends AppCompatActivity {
 //        configureLocationServices();
 //        askForLocation();
 
+//
+//    public void askForLocation() {
+//        // TODO: geocoder
+//        LocationRequest locationRequest;
+//        LocationCallback locationCallback;
+//
+//
+//        locationRequest = LocationRequest.create();
+//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        locationRequest.setInterval(10000);
+//
+//
+//        locationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                if (locationResult == null) {
+//                    Log.i(TAG2, "result is null");
+//
+//                    return;
+//                }
+//                currentLocation = locationResult.getLastLocation();
+//                Log.i(TAG2, currentLocation.toString());
+//
+//                // TODO: GeoCoding the coordinates
+//                Geocoder geocoder = new Geocoder(ProfileActivity.this, Locale.getDefault());
+//                try {
+//                    List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 10);
+//                    Log.i(TAG2, addresses.get(0).toString());
+//                    addressString = addresses.get(0).getAddressLine(0);
+//                    Log.i(TAG2, addressString);
+//
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//
+//        };
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            Toast t = new Toast(this);
+//            t.setText("You need to accept the permissions");
+//            t.setDuration(Toast.LENGTH_LONG);
+//            t.show();
+//            return;
+//        }
+//        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
+//    }
 
         // upload profile photo
 //        Button uploadButt = findViewById(R.id.addPicture);
