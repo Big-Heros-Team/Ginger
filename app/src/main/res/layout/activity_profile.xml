@@ -16,8 +16,8 @@
     <RelativeLayout
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grad"
+        android:layout_height="250dp"
+        android:background="@drawable/graybg"
         android:paddingBottom="20dp">
 
         <RelativeLayout
@@ -28,25 +28,24 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/circle_border">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/image"-->
-<!--                android:layout_width="120dp"-->
-<!--                android:layout_height="120dp"-->
-<!--                android:layout_margin="9dp"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:background="@drawable/circle"-->
-<!--                android:padding="3dp"-->
-<!--                android:scaleType="centerInside"-->
-<!--                android:src="@drawable/ic_user" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/image"-->
+            <!--                android:layout_width="120dp"-->
+            <!--                android:layout_height="120dp"-->
+            <!--                android:layout_margin="9dp"-->
+            <!--                android:adjustViewBounds="true"-->
+            <!--                android:background="@drawable/circle"-->
+            <!--                android:padding="3dp"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/ic_user" />-->
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:src="@drawable/ic_user_profile"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
 
         </RelativeLayout>
 
@@ -89,6 +88,8 @@
             <Button
                 android:id="@+id/uploadPhotoBtn"
                 android:layout_width="match_parent"
+                android:background="@drawable/btn_bg_design"
+
                 android:layout_height="match_parent"
                 android:text="Upload photo"/>
 
@@ -115,6 +116,7 @@
                     android:id="@+id/updateDetailsBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/btn_bg_design"
                     android:text="update details"/>
 
             </LinearLayout>
