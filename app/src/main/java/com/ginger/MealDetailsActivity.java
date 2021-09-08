@@ -161,7 +161,7 @@ youtubeButton.setVisibility(View.GONE);
                     category.setText(mealDetailsList.get(0).getStrCategory());
                     mealName.setText(mealDetailsList.get(0).getStrMeal());
                     String instructionsString=mealDetailsList.get(0).getStrInstructions();
-                    List<String> instructionsSteps= Arrays.asList(instructionsString.split("\\."));
+                    List<String> instructionsSteps= Arrays.asList(instructionsString.split("\\.\\s?"));
                     String formattedInstructions=new String();
                     SpannableStringBuilder str = new SpannableStringBuilder("Your awesome text");
 

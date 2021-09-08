@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainCategoryAdapter(categoryList.getCategoryList(), new MainCategoryAdapter.OnTaskItemClickListener() {
             @Override
             public void onItemClicked(int position) {
+                findViewById(R.id.select_icon).setVisibility(View.GONE);
+                findViewById(R.id.select_category).setVisibility(View.GONE);
                 getMealsList(categoryList.getCategoryList().get(position).getStrCategory());
             }
         }, MainActivity.this);
