@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -41,6 +42,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class MealDetailsActivity extends AppCompatActivity {
     IngredientsAdapter adapter;
     List<Recipe> result;
     ImageButton imageButton;
+    ImageButton youtubeButton;
 
 
     @Override
@@ -79,8 +82,10 @@ public class MealDetailsActivity extends AppCompatActivity {
         // Get meal By ID
         handler.post(() -> getMealById(id));
 imageButton= findViewById(R.id.addToFavorite);
+youtubeButton=findViewById(R.id.youtubeButton);
 
 imageButton.setVisibility(View.GONE);
+youtubeButton.setVisibility(View.GONE);
 
     }
 
@@ -106,7 +111,18 @@ imageButton.setVisibility(View.GONE);
                     public void run() {
                         if (result.isEmpty()) {
                             imageButton.setVisibility(View.VISIBLE);
-                        }                    }
+                        }
+                        if (!(mealDetailsList.get(0).getStrYoutube()==null || mealDetailsList.get(0).getStrYoutube()=="")){
+                            youtubeButton.setVisibility(View.VISIBLE);
+                          youtubeButton.setOnClickListener(view -> {
+                              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealDetailsList.get(0).getStrYoutube()));
+                              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                              intent.setPackage("com.google.android.youtube");
+                              startActivity(intent);
+                          });
+                        }
+
+                    }
                 }, 1000);
 
                 Log.i("API", "onSuccessful: " + mealsList.getMeals().get(0).getStrMeal());
@@ -144,7 +160,17 @@ imageButton.setVisibility(View.GONE);
                     cuisine.setText(mealDetailsList.get(0).getStrArea()+ "   |");
                     category.setText(mealDetailsList.get(0).getStrCategory());
                     mealName.setText(mealDetailsList.get(0).getStrMeal());
-                    instructions.setText(mealDetailsList.get(0).getStrInstructions().replaceAll("\\.\\s?", "\\.\n"));
+                    String instructionsString=mealDetailsList.get(0).getStrInstructions();
+                    List<String> instructionsSteps= Arrays.asList(instructionsString.split("\\."));
+                    String formattedInstructions=new String();
+                    SpannableStringBuilder str = new SpannableStringBuilder("Your awesome text");
+
+                    for (int i = 0; i < instructionsSteps.size(); i++) {
+                        int step=i+1;
+                        formattedInstructions+="<b>"+"Step"+step+"</b>"+" :"+instructionsSteps.get(i)+".";
+                    }
+
+                    instructions.setText(Html.fromHtml(formattedInstructions).toString().replaceAll("\\.\\s?", "\\.\n\n"));
 
                     instructions.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
 
