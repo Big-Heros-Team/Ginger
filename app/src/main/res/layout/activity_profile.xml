@@ -44,7 +44,7 @@
                 android:id="@+id/image"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:src="@drawable/ic_user"
+                android:src="@drawable/ic_user_profile"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>
 
@@ -261,5 +261,15 @@
             android:orientation="vertical"/>
 
     </RelativeLayout>
-    </RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomNavigation"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu"
+        />
+
+</RelativeLayout>
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -32,21 +33,19 @@ public class FavoritesActivity extends AppCompatActivity {
     Handler handler;
     FavoritesAdapter adapter;
     List<Recipe> favoritesList;
+    LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_favorites);
+
+
+        loadingDialog = new LoadingDialog(FavoritesActivity.this);
+
+        loadingDialog.startLoadingDialog();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.item2);
@@ -61,11 +60,30 @@ public class FavoritesActivity extends AppCompatActivity {
                         return true;
                     case R.id.item2:
                         return true;
-                        // TODO insert third and fourth page for profile and blogs
+                    case R.id.item3:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+//                    case R.id.item4:
+//                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+                    case R.id.item5:
+                        startActivity(new Intent(getApplicationContext(), FilterActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
         });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        },2000);
 
         favoritesList=getAllRecipes();
 

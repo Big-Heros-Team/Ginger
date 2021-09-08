@@ -28,7 +28,7 @@
         android:layout_marginStart="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_70sdp"
         android:layout_marginEnd="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical"
         tools:itemCount="1"
         tools:listitem="@layout/item_rv_favortie" />

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.amplifyframework.AmplifyException;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         loadingDialog = new LoadingDialog(MainActivity.this);
@@ -67,8 +70,18 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-//                    case R.id.item3:
+                    case R.id.item3:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+//                    case R.id.item4:
+//                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+//                        overridePendingTransition(0,0);
 //                        return true;
+                    case R.id.item5:
+                        startActivity(new Intent(getApplicationContext(), FilterActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
@@ -80,19 +93,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 loadingDialog.dismissDialog();
             }
-        },5000);
-
-
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
+        },2000);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.themealdb.com/api/json/v1/1/")
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 MealDetailsList mealsList = response.body();
-                Log.i("API", "onSuccessful: " + mealsList.getMeals().get(0).getStrMeal());
+                Log.i("API", "onSuccessful: " + mealsList.getMeals().get(0));
             }
 
             @Override

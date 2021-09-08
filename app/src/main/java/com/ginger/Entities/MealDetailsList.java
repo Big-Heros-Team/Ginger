@@ -1,14 +1,12 @@
 package com.ginger.Entities;
 
-import com.ginger.filter.MealFilterItemDetails;
-
 import java.util.List;
 
 public class MealDetailsList {
 
-    private List<MealFilterItemDetails> meals;
+    private List<MealDetails> meals;
 
-    public List<MealFilterItemDetails> getMeals() {
+    public List<MealDetails> getMeals() {
         return meals;
     }
 }

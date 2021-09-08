@@ -1,5 +1,6 @@
 package com.ginger;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,14 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.core.Amplify;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+//import com.google.android.gms.location.FusedLocationProviderClient;
+//import com.google.android.gms.location.LocationCallback;
+//import com.google.android.gms.location.LocationResult;
+//import com.google.android.gms.location.LocationRequest;
+//import com.google.android.gms.location.LocationServices;
+//import android.location.Address;
+//import android.location.Geocoder;
+//import android.location.Location;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,10 +56,10 @@ public class ProfileActivity extends AppCompatActivity {
     private String key;
 
     // location
-    private static final String TAG2 = "location" ;
-    FusedLocationProviderClient locationProviderClient;
-    Location currentLocation;
-    String addressString;
+//    private static final String TAG2 = "location" ;
+//    FusedLocationProviderClient locationProviderClient;
+//    Location currentLocation;
+//    String addressString;
     // pop out menue
 
     private AlertDialog.Builder dialogeBuilder;
@@ -71,12 +74,44 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile);
 
         // user Name:
         TextView namePlaceHolder= findViewById(R.id.tv_name);
         namePlaceHolder.setText(Amplify.Auth.getCurrentUser().getUsername());
 
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.item3);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.item1:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item2:
+                        startActivity(new Intent(getApplicationContext(), FavoritesActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item3:
+                        return true;
+//                    case R.id.item4:
+//                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+                    case R.id.item5:
+                        startActivity(new Intent(getApplicationContext(), FilterActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
         // location
 
 //        askForPermissionToUseLocation();
@@ -101,66 +136,66 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // location
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void askForPermissionToUseLocation() {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    public void askForPermissionToUseLocation() {
+//        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+//    }
 
+//
+//    public void askForLocation() {
+//        // TODO: geocoder
+//        LocationRequest locationRequest;
+//        LocationCallback locationCallback;
+//
+//
+//        locationRequest = LocationRequest.create();
+//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        locationRequest.setInterval(10000);
+//
+//
+//        locationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                if (locationResult == null) {
+//                    Log.i(TAG2, "result is null");
+//
+//                    return;
+//                }
+//                currentLocation = locationResult.getLastLocation();
+//                Log.i(TAG2, currentLocation.toString());
+//
+//                // TODO: GeoCoding the coordinates
+//                Geocoder geocoder = new Geocoder(ProfileActivity.this, Locale.getDefault());
+//                try {
+//                    List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 10);
+//                    Log.i(TAG2, addresses.get(0).toString());
+//                    addressString = addresses.get(0).getAddressLine(0);
+//                    Log.i(TAG2, addressString);
+//
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//
+//        };
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            Toast t = new Toast(this);
+//            t.setText("You need to accept the permissions");
+//            t.setDuration(Toast.LENGTH_LONG);
+//            t.show();
+//            return;
+//        }
+//        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
+//    }
 
-    public void askForLocation() {
-        // TODO: geocoder
-        LocationRequest locationRequest;
-        LocationCallback locationCallback;
-
-
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10000);
-
-
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    Log.i(TAG2, "result is null");
-
-                    return;
-                }
-                currentLocation = locationResult.getLastLocation();
-                Log.i(TAG2, currentLocation.toString());
-
-                // TODO: GeoCoding the coordinates
-                Geocoder geocoder = new Geocoder(ProfileActivity.this, Locale.getDefault());
-                try {
-                    List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 10);
-                    Log.i(TAG2, addresses.get(0).toString());
-                    addressString = addresses.get(0).getAddressLine(0);
-                    Log.i(TAG2, addressString);
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-        };
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            Toast t = new Toast(this);
-            t.setText("You need to accept the permissions");
-            t.setDuration(Toast.LENGTH_LONG);
-            t.show();
-            return;
-        }
-        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
-    }
-
-    public void configureLocationServices(){
-        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        // fuses the multiple location requests into one big one, gives you the most accurate that comes back
-    }
+//    public void configureLocationServices(){
+//        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//        // fuses the multiple location requests into one big one, gives you the most accurate that comes back
+//    }
 
     // storage
     @RequiresApi(api = Build.VERSION_CODES.Q)

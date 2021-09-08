@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     // google play --location---
     implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation  'androidx.activity:activity:1.2.0-beta01'
+    implementation  'androidx.activity:activity:1.4.0-alpha01'
     // Overrides an auth dependency to ensure correct behavior
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     // storage

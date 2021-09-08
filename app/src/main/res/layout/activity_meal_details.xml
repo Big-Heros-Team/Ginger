@@ -151,10 +151,6 @@
         android:padding="@dimen/_2sdp"
 
         />
-
-
-
-
 </LinearLayout>
 
 </ScrollView>

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ginger.Entities.Category;
-import com.ginger.Entities.MealDetails;
 import com.ginger.R;
 import com.squareup.picasso.Picasso;
 
