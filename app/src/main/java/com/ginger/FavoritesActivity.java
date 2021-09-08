@@ -1,5 +1,6 @@
 package com.ginger;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -19,6 +21,7 @@ import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Recipe;
 import com.ginger.adapters.FavoritesAdapter;
 import com.ginger.adapters.MainCategoryAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,26 @@ public class FavoritesActivity extends AppCompatActivity {
             Log.e("Tutorial", "Could not initialize Amplify", e);
         }
         setContentView(R.layout.activity_favorites);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.item2);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.item1:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.item2:
+                        return true;
+                        // TODO insert third and fourth page for profile and blogs
+                }
+                return false;
+            }
+        });
+
         favoritesList=getAllRecipes();
 
         handler=new Handler(Looper.getMainLooper());

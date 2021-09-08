@@ -20,14 +20,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0" />
 
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginBottom="70dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,17 +56,6 @@
                 tools:itemCount="1"
                 tools:listitem="@layout/item_rv_main_category" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gilroy_bold"
-                android:paddingStart="@dimen/_10sdp"
-                android:text="Category name"
-                android:id="@+id/tvCategory"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp"
-                android:textAlignment="center"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_sub_category"
                 android:layout_width="match_parent"
@@ -76,8 +66,19 @@
                 tools:listitem="@layout/item_rv_sub_category" />
 
 
+
+
         </LinearLayout>
     </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomNavigation"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu"
+        />
 
 
 </RelativeLayout>

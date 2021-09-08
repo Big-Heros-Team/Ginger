@@ -21,7 +21,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        loadingDialog = new LoadingDialog(SigninActivity.this);
+        loadingDialog = new LoadingDialog(SignInActivity.this);
 
 
 
