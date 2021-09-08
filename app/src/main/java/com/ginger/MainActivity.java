@@ -15,8 +15,6 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.ginger.Entities.CategoryList;
-import com.ginger.Entities.Meal;
-import com.ginger.Entities.MealDetails;
 import com.ginger.Entities.MealDetailsList;
 import com.ginger.Entities.MealsList;
 import com.ginger.Retrofit.FoodApi;
@@ -45,7 +43,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        amplifyConfig();
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.themealdb.com/api/json/v1/1/")
@@ -56,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Get Categories list
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         Call<CategoryList> resultCall = foodApi.getCategoryList();
 
         resultCall.enqueue(new Callback<CategoryList>() {
@@ -70,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("API", "onSuccessful: " + categoryList.getCategoryList().get(0).getStrCategory());
 
                 handler.post(() -> {
-                    getCategoryData();
+                    setRecyclerView();
                 });
             }
 
@@ -102,23 +118,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
-    public void amplifyConfig() {
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
-    }
-
-    public void getCategoryData() {
+    public void setRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.rv_main_category);
 
         adapter = new MainCategoryAdapter(categoryList.getCategoryList(), new MainCategoryAdapter.OnTaskItemClickListener() {
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 goToDetailsIntent.putExtra(MEAL_ID, mealsList.getMeals().get(position).getIdMeal());
                 startActivity(goToDetailsIntent);
             }
-        });
+        },MainActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 this,
                 LinearLayoutManager.HORIZONTAL,

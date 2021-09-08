@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.amplifyframework.core.Amplify;
 
-public class SigninActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class SigninActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              Intent intent= new Intent(SigninActivity.this,SignupActivity.class);
+              Intent intent= new Intent(SignInActivity.this,SignupActivity.class);
               startActivity(intent);
 
             }
@@ -52,14 +52,7 @@ public class SigninActivity extends AppCompatActivity {
 
                 }else{
                     signing(userString,passwordString);
-                    try {
-                        Thread.sleep(3000);
-                        Log.d("signupActivity", "user string="+userString);
-                        Log.d("signupActivity", "password string="+passwordString);
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     username.getText().clear();
                     password.getText().clear();
                 }
@@ -74,7 +67,7 @@ public class SigninActivity extends AppCompatActivity {
                 password,
                 result -> {
                     if (result.isSignInComplete()){
-                        Intent intent = new Intent(SigninActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 },

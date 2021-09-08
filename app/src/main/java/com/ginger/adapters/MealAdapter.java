@@ -1,7 +1,9 @@
 package com.ginger.adapters;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ginger.Entities.Meal;
+import com.ginger.MealDetailsActivity;
 import com.ginger.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,14 +28,16 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
     private final List<Meal> meals;
     private OnTaskItemClickListener listener;
+    private Context context;
 
     public interface OnTaskItemClickListener {
         void onItemClicked(int position);
     }
 
-    public MealAdapter(List<Meal> meals, OnTaskItemClickListener listener) {
+    public MealAdapter(List<Meal> meals, OnTaskItemClickListener listener,Context context) {
         this.meals = meals;
         this.listener = listener;
+        this.context=context;
     }
 
     @NonNull
@@ -46,9 +52,10 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         Meal meal = meals.get(position);
         holder.mealName.setText(meal.getStrMeal());
 
-        if (meal.getStrMealThumb() != null && !meal.getStrMealThumb().equals("")) {
-            new GetImageFromUrl(holder.mealImage).execute(meal.getStrMealThumb());
-        }
+
+        Uri uri = Uri.parse(meal.getStrMealThumb());
+        Picasso.with(context).load(uri).into(holder.mealImage);
+
     }
 
     @Override
@@ -77,32 +84,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         }
     }
 
-    public class GetImageFromUrl extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
 
-        public GetImageFromUrl(ImageView img) {
-            this.imageView = img;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... url) {
-            String stringUrl = url[0];
-            bitmap = null;
-            InputStream inputStream;
-            try {
-                inputStream = new java.net.URL(stringUrl).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            imageView.setImageBitmap(bitmap);
-        }
-    }
 
 }

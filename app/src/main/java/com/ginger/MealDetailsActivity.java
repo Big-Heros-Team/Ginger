@@ -1,19 +1,34 @@
 package com.ginger;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.text.LineBreaker;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amazonaws.mobileconnectors.cognitoauth.Auth;
+import com.amazonaws.mobileconnectors.cognitoauth.handlers.AuthHandler;
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Recipe;
 import com.ginger.Entities.Meal;
 import com.ginger.Entities.MealDetails;
 import com.ginger.Entities.MealDetailsList;
@@ -41,6 +56,9 @@ public class MealDetailsActivity extends AppCompatActivity {
     Handler handler;
     List<String> list;
     IngredientsAdapter adapter;
+    List<Recipe> result;
+    ImageButton imageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +75,12 @@ public class MealDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getExtras().getString(MainActivity.MEAL_ID);
 
-        handler = new Handler();
+        handler = new Handler(Looper.getMainLooper());
         // Get meal By ID
         handler.post(() -> getMealById(id));
+imageButton= findViewById(R.id.addToFavorite);
 
+imageButton.setVisibility(View.GONE);
 
     }
 
@@ -77,9 +97,23 @@ public class MealDetailsActivity extends AppCompatActivity {
 
                 MealDetailsList mealsList = response.body();
                 assert mealsList != null;
+                result=getRecipe(mealsList.getMeals().get(0).getStrMeal(),Amplify.Auth.getCurrentUser().getUsername());
+
+
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result.isEmpty()) {
+                            imageButton.setVisibility(View.VISIBLE);
+                        }                    }
+                }, 1000);
+
                 Log.i("API", "onSuccessful: " + mealsList.getMeals().get(0).getStrMeal());
                 mealDetailsList = mealsList.getMeals();
                 handler.post(() -> {
+
+
 
 
                     ImageView mealImage = findViewById(R.id.imageView);
@@ -89,23 +123,37 @@ public class MealDetailsActivity extends AppCompatActivity {
                     list = new ArrayList<>();
 
                     for (int i = 0; i <= 9; i++) {
-                        if (mealDetailsList.get(0).getStrIngredient(i + 1) != null) {
+                        if (mealDetailsList.get(0).getStrIngredient(i + 1) != null && !mealDetailsList.get(0).getStrIngredient(i + 1).equals("")) {
                             if (mealDetailsList.get(0).getStrMeasure(i+1)==null || mealDetailsList.get(0).getStrMeasure(i + 1).equals("")) {
                                 list.add(mealDetailsList.get(0).getStrIngredient(i + 1));
                             }
-                          else {
-                              list.add(mealDetailsList.get(0).getStrIngredient(i + 1) + " : " + mealDetailsList.get(0).getStrMeasure(i + 1));
+                            else {
+                                list.add(mealDetailsList.get(0).getStrIngredient(i + 1) + " : " + mealDetailsList.get(0).getStrMeasure(i + 1));
                             }
                         }
                     }
 
-                    adapter = new IngredientsAdapter(list, new IngredientsAdapter.OnTaskItemClickListener() {
-                        @Override
-                        public void onItemClicked(int position) {
+                    String ingredientsNumbers="<b>" + list.size() + "</b> " + "ingredients    |";;
+                    TextView ingredientsNum = findViewById(R.id.ingredients);
+                    TextView cuisine = findViewById(R.id.cuisine);
+                    TextView category = findViewById(R.id.category);
+                    TextView mealName = findViewById(R.id.mealName);
+                    TextView instructions = findViewById(R.id.instructions);
 
-                        }
-                    });
+                    ingredientsNum.setText(Html.fromHtml(ingredientsNumbers));
+                    cuisine.setText(mealDetailsList.get(0).getStrArea()+ "   |");
+                    category.setText(mealDetailsList.get(0).getStrCategory());
+                    mealName.setText(mealDetailsList.get(0).getStrMeal());
+                    instructions.setText(mealDetailsList.get(0).getStrInstructions().replaceAll("\\.\\s?", "\\.\n"));
+
+                    instructions.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+
+                    imageButton.setOnClickListener(view -> addToFavorite(mealDetailsList.get(0)));
+
+
+                    adapter = new IngredientsAdapter(list);
                     RecyclerView recyclerView = findViewById(R.id.rv_ingredients);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.HORIZONTAL));
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                             MealDetailsActivity.this,
                             RecyclerView.VERTICAL, false);
@@ -135,4 +183,58 @@ public class MealDetailsActivity extends AppCompatActivity {
         return image;
 
     }
+
+    public void addToFavorite(MealDetails meal){
+        if (Amplify.Auth.getCurrentUser()==null){
+            Log.i("addToFavorite", "addToFavorite: "+Amplify.Auth.getCurrentUser());
+            Intent intent = new Intent(this,SignInActivity.class);
+            startActivity(intent);
+        }
+        else {
+
+
+
+            handler.postDelayed(() -> {
+
+
+
+                Recipe recipe = Recipe.builder()
+                        .recipeId(meal.getIdMeal())
+                        .name(meal.getStrMeal())
+                        .photo(meal.getStrMealThumb())
+                        .owner(Amplify.Auth.getCurrentUser().getUsername())
+                        .build();
+
+                Amplify.API.mutate(ModelMutation.create(recipe),
+                        response -> {
+                    Log.i("MyAmplifyApp", "Todo with id: " + response.getData().getId());
+                         runOnUiThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Toast.makeText(getApplicationContext(), "Recipe is added to your favorites", Toast.LENGTH_SHORT).show();
+                             }
+                         });
+                        },
+                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                );
+
+            },3000);
+        }
+}
+
+public List<Recipe> getRecipe(String name,String owner){
+
+        List<Recipe> result=new ArrayList<>();
+    Amplify.API.query(
+            ModelQuery.list(Recipe.class, Recipe.NAME.contains(name).and(Recipe.OWNER.contains(owner))),
+            response -> {
+                for (Recipe recipe : response.getData()) {
+                    Log.i("MyAmplifyApp", recipe.getName());
+                    result.add(recipe);
+                }
+            },
+            error -> Log.e("MyAmplifyApp", "Query failure", error)
+    );
+    return result;
+}
 }

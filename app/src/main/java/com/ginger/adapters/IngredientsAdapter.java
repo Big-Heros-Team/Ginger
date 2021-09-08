@@ -22,12 +22,10 @@ import java.util.Locale;
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
 
     private final List<String> ingredients;
-    private final OnTaskItemClickListener listener;
 
 
-    public IngredientsAdapter(List<String> ingredients, OnTaskItemClickListener listener) {
+    public IngredientsAdapter(List<String> ingredients) {
         this.ingredients = ingredients;
-        this.listener = listener;
 
     }
 
@@ -41,7 +39,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_ingredients,parent,false);
-        return new ViewHolder(view,listener);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -63,12 +61,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         private final TextView text;
 
-        ViewHolder(@NonNull View itemView, OnTaskItemClickListener listener) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             text = itemView.findViewById(R.id.tv_ingredient);
 
-            itemView.setOnClickListener(v -> listener.onItemClicked(getAdapterPosition()));
 
 
         }

@@ -24,7 +24,7 @@ public class SignupActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(SignupActivity.this,SigninActivity.class);
+                Intent intent= new Intent(SignupActivity.this, SignInActivity.class);
                 startActivity(intent);
 
             }
@@ -69,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.textView10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
+                Intent intent = new Intent(SignupActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
         });

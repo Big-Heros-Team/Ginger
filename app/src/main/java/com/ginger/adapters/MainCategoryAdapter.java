@@ -50,11 +50,16 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         if (!item.getStrCategory().equals("Pork")) {
             holder.name.setText(item.getStrCategory());
             String uri = "@drawable/" + item.getStrCategory().toLowerCase(Locale.ROOT);
-            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+//            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
 
-            Drawable res = context.getResources().getDrawable(imageResource);
-//            Picasso.with(context).load(imageResource).noFade().into(holder.image);
-            holder.image.setImageDrawable(res);
+
+//            Drawable res = context.getResources().getDrawable(imageResource);
+            int resId=context.getResources().getIdentifier(item.getStrCategory().toLowerCase(Locale.ROOT),"drawable",context.getPackageName());
+            Picasso.with(context).load(resId)
+            .resize(1920,1080)
+                    .centerInside()
+                    .into(holder.image);
+//            holder.image.setImageDrawable(res);
         }
 
 
