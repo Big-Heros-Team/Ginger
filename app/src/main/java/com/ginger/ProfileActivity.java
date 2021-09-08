@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.FileUtils;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Blog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 //import com.google.android.gms.location.FusedLocationProviderClient;
 //import com.google.android.gms.location.LocationCallback;
@@ -55,13 +58,6 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "upload";
     private String key;
 
-    // location
-//    private static final String TAG2 = "location" ;
-//    FusedLocationProviderClient locationProviderClient;
-//    Location currentLocation;
-//    String addressString;
-    // pop out menue
-
     private AlertDialog.Builder dialogeBuilder;
     private AlertDialog dialog;
     private EditText newContent_name;
@@ -70,6 +66,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button save;
     private Button cancle;
+    ImageView image;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor preferenceEditor;
+    TextView namePlaceHolder;
+    TextView emailPlaceHolder;
+    TextView addressPlaceHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,23 @@ public class ProfileActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+        preferenceEditor= sharedPreferences.edit();
+
+         namePlaceHolder= findViewById(R.id.name);
+         emailPlaceHolder= findViewById(R.id.email);
+         addressPlaceHolder= findViewById(R.id.address);
+
+        if (sharedPreferences.contains("name")){
+            namePlaceHolder.setText(sharedPreferences.getString("name", "username"));
+        }
+        if (sharedPreferences.contains("email")){
+            emailPlaceHolder.setText(sharedPreferences.getString("email", "username"));
+        }
+        if (sharedPreferences.contains("address")){
+            addressPlaceHolder.setText(sharedPreferences.getString("address", "username"));
+        }
 
         // user Name:
         TextView namePlaceHolder= findViewById(R.id.tv_name);
@@ -100,10 +119,10 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                     case R.id.item3:
                         return true;
-//                    case R.id.item4:
-//                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
+                    case R.id.item4:
+                        startActivity(new Intent(getApplicationContext(), BlogActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.item5:
                         startActivity(new Intent(getApplicationContext(), FilterActivity.class));
                         overridePendingTransition(0,0);
@@ -112,140 +131,30 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
-        // location
 
-//        askForPermissionToUseLocation();
-//        configureLocationServices();
-//        askForLocation();
-
-//
-//    public void askForLocation() {
-//        // TODO: geocoder
-//        LocationRequest locationRequest;
-//        LocationCallback locationCallback;
-//
-//
-//        locationRequest = LocationRequest.create();
-//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        locationRequest.setInterval(10000);
-//
-//
-//        locationCallback = new LocationCallback() {
-//            @Override
-//            public void onLocationResult(LocationResult locationResult) {
-//                if (locationResult == null) {
-//                    Log.i(TAG2, "result is null");
-//
-//                    return;
-//                }
-//                currentLocation = locationResult.getLastLocation();
-//                Log.i(TAG2, currentLocation.toString());
-//
-//                // TODO: GeoCoding the coordinates
-//                Geocoder geocoder = new Geocoder(ProfileActivity.this, Locale.getDefault());
-//                try {
-//                    List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 10);
-//                    Log.i(TAG2, addresses.get(0).toString());
-//                    addressString = addresses.get(0).getAddressLine(0);
-//                    Log.i(TAG2, addressString);
-//
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//
-//        };
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            Toast t = new Toast(this);
-//            t.setText("You need to accept the permissions");
-//            t.setDuration(Toast.LENGTH_LONG);
-//            t.show();
-//            return;
-//        }
-//        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
-//    }
-
-        // upload profile photo
-//        Button uploadButt = findViewById(R.id.addPicture);
-
-        // add listener for the upload file button
-
-//        uploadButt.setOnClickListener(v -> getFileFromDevice());
-//        download image and render it
-        ImageView image= findViewById(R.id.image);
+         image= findViewById(R.id.image);
         downloadFile(Amplify.Auth.getCurrentUser().getUsername(),image);
         if (getIntent().getStringExtra("linkFile") != null){
 
             downloadFile(getIntent().getStringExtra("linkFile"),image);
         }
 
+
+        findViewById(R.id.uploadPhotoBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFileFromDevice();
+            }
+        });
+
+        findViewById(R.id.updateDetailsBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createNewContantDialoge();
+            }
+        });
     }
 
-    // location
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    public void askForPermissionToUseLocation() {
-//        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
-//    }
-
-//
-//    public void askForLocation() {
-//        // TODO: geocoder
-//        LocationRequest locationRequest;
-//        LocationCallback locationCallback;
-//
-//
-//        locationRequest = LocationRequest.create();
-//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        locationRequest.setInterval(10000);
-//
-//
-//        locationCallback = new LocationCallback() {
-//            @Override
-//            public void onLocationResult(LocationResult locationResult) {
-//                if (locationResult == null) {
-//                    Log.i(TAG2, "result is null");
-//
-//                    return;
-//                }
-//                currentLocation = locationResult.getLastLocation();
-//                Log.i(TAG2, currentLocation.toString());
-//
-//                // TODO: GeoCoding the coordinates
-//                Geocoder geocoder = new Geocoder(ProfileActivity.this, Locale.getDefault());
-//                try {
-//                    List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 10);
-//                    Log.i(TAG2, addresses.get(0).toString());
-//                    addressString = addresses.get(0).getAddressLine(0);
-//                    Log.i(TAG2, addressString);
-//
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//
-//        };
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            Toast t = new Toast(this);
-//            t.setText("You need to accept the permissions");
-//            t.setDuration(Toast.LENGTH_LONG);
-//            t.show();
-//            return;
-//        }
-//        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
-//    }
-
-//    public void configureLocationServices(){
-//        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-//        // fuses the multiple location requests into one big one, gives you the most accurate that comes back
-//    }
 
     // storage
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -271,7 +180,10 @@ public class ProfileActivity extends AppCompatActivity {
                     key = Amplify.Auth.getCurrentUser().getUsername(),
 //                    key= new Date().toString()+".jpg",
                     uploadedFile,
-                    sucess -> Log.i(TAG,"the file saved to s3 successfully"),
+                    success -> {
+                        Log.i(TAG,"the file saved to s3 successfully");
+                        downloadFile(key, image);
+                    },
                     error -> Log.e(TAG," error in store data at S3 "+ error)
             );
 
@@ -319,23 +231,11 @@ public class ProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id== R.id.item1){
             getFileFromDevice();
-//            Toast.makeText(this, "Picture Uploaded", Toast.LENGTH_SHORT).show();
         }
         if (id== R.id.item2){
 
             createNewContantDialoge();
         }
-//        switch (item.getItemId()) {
-//            case R.id.item1:
-//                return true;
-//            case R.id.item2:
-////                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
-//                createNewContantDialoge();
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -355,13 +255,15 @@ public class ProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView namePlacHolder= findViewById(R.id.name);
-                TextView emailPlacHolder= findViewById(R.id.email);
-                TextView addressPlacHolder= findViewById(R.id.address);
 
-                namePlacHolder.setText(newContent_name.getText());
-                emailPlacHolder.setText(newContent_email.getText());
-                addressPlacHolder.setText(newContent_address.getText());
+                namePlaceHolder.setText(newContent_name.getText());
+                emailPlaceHolder.setText(newContent_email.getText());
+                addressPlaceHolder.setText(newContent_address.getText());
+
+                preferenceEditor.putString("name", newContent_name.getText().toString());
+                preferenceEditor.putString("email", newContent_email.getText().toString());
+                preferenceEditor.putString("address", newContent_address.getText().toString());
+
                 dialog.dismiss();
 
 
