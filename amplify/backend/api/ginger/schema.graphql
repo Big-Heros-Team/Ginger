@@ -1,5 +1,12 @@
-type Todo @model {
-  id: ID!
-  name: String!
-  description: String
+
+
+type Recipe @model  @versioned @aws_cognito_user_pools @auth(rules:[{allow: owner},{allow: public}])
+  {
+id :ID!
+
+recipeID :String!
+name:String!
+photo:String!
+owner : String!
+
 }

@@ -38,7 +38,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 confirmCode,
                 result -> {
                     if (result.isSignUpComplete()){
-                        Intent intent = new Intent(ConfirmActivity.this, SigninActivity.class);
+                        Intent intent = new Intent(ConfirmActivity.this, SignInActivity.class);
                         startActivity(intent);
                     }
                 },
