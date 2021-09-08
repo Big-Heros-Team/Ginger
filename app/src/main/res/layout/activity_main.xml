@@ -7,6 +7,22 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background"
+        android:foreground="@drawable/foreground"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pg4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,10 +37,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gilroy_bold"
+                android:fontFamily="@font/lobster"
                 android:padding="@dimen/_10sdp"
                 android:text="All Recipes"
-                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_20ssp" />
 
 
@@ -45,8 +62,9 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:text="Category name"
                 android:id="@+id/tvCategory"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15ssp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:textAlignment="center"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_sub_category"
