@@ -1,37 +1,85 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateTodo(
-  $input: CreateTodoInput!
-  $condition: ModelTodoConditionInput
+mutation CreateBlog(
+  $input: CreateBlogInput!
+  $condition: ModelBlogConditionInput
 ) {
-  createTodo(input: $input, condition: $condition) {
+  createBlog(input: $input, condition: $condition) {
     id
-    name
-    description
+    title
+    body
+    userName
     createdAt
     updatedAt
   }
 }
-mutation UpdateTodo(
-  $input: UpdateTodoInput!
-  $condition: ModelTodoConditionInput
+mutation UpdateBlog(
+  $input: UpdateBlogInput!
+  $condition: ModelBlogConditionInput
 ) {
-  updateTodo(input: $input, condition: $condition) {
+  updateBlog(input: $input, condition: $condition) {
     id
-    name
-    description
+    title
+    body
+    userName
     createdAt
     updatedAt
   }
 }
-mutation DeleteTodo(
-  $input: DeleteTodoInput!
-  $condition: ModelTodoConditionInput
+mutation DeleteBlog(
+  $input: DeleteBlogInput!
+  $condition: ModelBlogConditionInput
 ) {
-  deleteTodo(input: $input, condition: $condition) {
+  deleteBlog(input: $input, condition: $condition) {
     id
-    name
-    description
+    title
+    body
+    userName
     createdAt
     updatedAt
+  }
+}
+mutation CreateRecipe(
+  $input: CreateRecipeInput!
+  $condition: ModelRecipeConditionInput
+) {
+  createRecipe(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+mutation UpdateRecipe(
+  $input: UpdateRecipeInput!
+  $condition: ModelRecipeConditionInput
+) {
+  updateRecipe(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+mutation DeleteRecipe(
+  $input: DeleteRecipeInput!
+  $condition: ModelRecipeConditionInput
+) {
+  deleteRecipe(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
   }
 }

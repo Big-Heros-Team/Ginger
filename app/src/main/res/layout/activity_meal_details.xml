@@ -8,19 +8,27 @@
     android:orientation="vertical">
 
     <androidx.percentlayout.widget.PercentRelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-       >
-        
+        android:layout_marginBottom="@dimen/_10sdp">
+
         <ImageView
+
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+
+            />
+
+        <Button
+
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add To favorite"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
 
             />
 
@@ -29,28 +37,25 @@
             android:layout_alignParentBottom="true"
             android:text="HIIII"
             app:layout_heightPercent="10%"
-            app:layout_widthPercent="33%"
-           />
+            app:layout_widthPercent="33%" />
 
         <TextView
             android:id="@+id/cuisine"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/ingredients"
             android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ingredients"
             android:text="HIIII"
             app:layout_heightPercent="10%"
-            app:layout_widthPercent="33%"
-            />
+            app:layout_widthPercent="33%" />
 
         <TextView
             android:id="@+id/category"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/cuisine"
             android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/cuisine"
             android:text="HIIII"
             app:layout_heightPercent="10%"
-            app:layout_widthPercent="33%"
-            />
+            app:layout_widthPercent="33%" />
     </androidx.percentlayout.widget.PercentRelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

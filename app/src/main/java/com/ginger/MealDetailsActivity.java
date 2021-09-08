@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,7 @@ public class MealDetailsActivity extends AppCompatActivity {
     Handler handler;
     List<String> list;
     IngredientsAdapter adapter;
+    private Button addToFavirote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,15 @@ public class MealDetailsActivity extends AppCompatActivity {
         handler = new Handler();
         // Get meal By ID
         handler.post(() -> getMealById(id));
+
+        // add item to the favirote list at the database
+        addToFavirote= findViewById(R.id.addButton);
+        addToFavirote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
     }

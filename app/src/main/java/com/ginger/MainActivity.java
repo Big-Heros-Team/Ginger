@@ -8,6 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler();
     FoodApi foodApi;
     HashMap<String, String> map;
+    private Button blogEvent ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CategoryList> call, Throwable t) {
                 Log.i("API", "onFailure: " + t.getMessage());
+            }
+        });
+
+        // blog event listener
+        blogEvent= findViewById(R.id.blogBut);
+        blogEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, BlogActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -184,4 +202,32 @@ public class MainActivity extends AppCompatActivity {
         mealsRecyclerView.setLayoutManager(linearLayoutManager);
         mealsRecyclerView.setAdapter(mealAdapter);
     }
+
+    // ADD MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fav:
+                Toast.makeText(this, "fav selected", Toast.LENGTH_SHORT).show();
+
+                return true;
+            case R.id.blog:
+                Toast.makeText(this, "blog selected", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(MainActivity.this, BlogActivity.class);
+                startActivity(intent);
+
+            case R.id.profile:
+                Toast.makeText(this, "profile selected", Toast.LENGTH_SHORT).show();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

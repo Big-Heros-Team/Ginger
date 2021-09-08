@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="250dp">-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+
+    android:background="@drawable/customborder"
+    >
+
+
+
+
+
+
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="217dp"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:id="@+id/blogTitle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="title"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/blogBody"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="body" />-->
+
+
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/blogDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="date" />-->
+<!--    </LinearLayout>-->
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/blogTitle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="Title"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="33dp"
+            android:textSize="20dp"
+            android:fontFamily="@font/gilroy_bold"
+            android:textAlignment="center"
+
+            />
+
+        <TextView
+            android:id="@+id/blogBody"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/adamina"
+            android:text="body"
+            android:textSize="16dp"
+            tools:layout_editor_absoluteX="55dp"
+
+            />
+
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/whitesmoke"
+            >
+
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+
+                android:layout_marginLeft="30dp"
+                android:text="userName"
+                tools:layout_editor_absoluteX="55dp"
+                android:fontFamily="@font/gilroy_light"
+
+
+                />
+
+            <TextView
+                android:id="@+id/blogDate"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="50dp"
+
+
+                android:text="date"
+                tools:layout_editor_absoluteX="55dp"
+                android:fontFamily="@font/gilroy_light"
+
+
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
