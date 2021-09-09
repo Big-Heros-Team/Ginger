@@ -83,3 +83,48 @@ mutation DeleteRecipe(
     version
   }
 }
+mutation CreateRecipeApi(
+  $input: CreateRecipeApiInput!
+  $condition: ModelRecipeApiConditionInput
+) {
+  createRecipeApi(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+mutation UpdateRecipeApi(
+  $input: UpdateRecipeApiInput!
+  $condition: ModelRecipeApiConditionInput
+) {
+  updateRecipeApi(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+mutation DeleteRecipeApi(
+  $input: DeleteRecipeApiInput!
+  $condition: ModelRecipeApiConditionInput
+) {
+  deleteRecipeApi(input: $input, condition: $condition) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}

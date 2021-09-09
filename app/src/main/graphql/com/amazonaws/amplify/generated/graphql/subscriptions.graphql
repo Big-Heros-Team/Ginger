@@ -65,3 +65,39 @@ subscription OnDeleteRecipe($owner: String) {
     version
   }
 }
+subscription OnCreateRecipeApi($owner: String) {
+  onCreateRecipeApi(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+subscription OnUpdateRecipeApi($owner: String) {
+  onUpdateRecipeApi(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
+subscription OnDeleteRecipeApi($owner: String) {
+  onDeleteRecipeApi(owner: $owner) {
+    id
+    recipeID
+    name
+    photo
+    owner
+    createdAt
+    updatedAt
+    version
+  }
+}
