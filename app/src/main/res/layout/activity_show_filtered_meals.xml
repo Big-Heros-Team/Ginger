@@ -28,6 +28,8 @@
         android:layout_marginTop="29dp"
         android:layout_marginBottom="27dp"
         android:text="Search Result"
+        android:textColor="#4A0000"
+        android:fontFamily="@font/lobster"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/ShowFilteredMealsList"
         app:layout_constraintEnd_toEndOf="parent"

@@ -81,11 +81,11 @@ public class MealDetailsActivity extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
         // Get meal By ID
         handler.post(() -> getMealById(id));
-imageButton= findViewById(R.id.addToFavorite);
-youtubeButton=findViewById(R.id.youtubeButton);
+        imageButton= findViewById(R.id.addToFavorite);
+        youtubeButton=findViewById(R.id.youtubeButton);
 
-imageButton.setVisibility(View.GONE);
-youtubeButton.setVisibility(View.GONE);
+        imageButton.setVisibility(View.GONE);
+        youtubeButton.setVisibility(View.GONE);
 
     }
 
@@ -114,12 +114,12 @@ youtubeButton.setVisibility(View.GONE);
                         }
                         if (!(mealDetailsList.get(0).getStrYoutube()==null || mealDetailsList.get(0).getStrYoutube()=="")){
                             youtubeButton.setVisibility(View.VISIBLE);
-                          youtubeButton.setOnClickListener(view -> {
-                              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealDetailsList.get(0).getStrYoutube()));
-                              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                              intent.setPackage("com.google.android.youtube");
-                              startActivity(intent);
-                          });
+                            youtubeButton.setOnClickListener(view -> {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealDetailsList.get(0).getStrYoutube()));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setPackage("com.google.android.youtube");
+                                startActivity(intent);
+                            });
                         }
 
                     }
@@ -233,34 +233,34 @@ youtubeButton.setVisibility(View.GONE);
 
                 Amplify.API.mutate(ModelMutation.create(recipe),
                         response -> {
-                    Log.i("MyAmplifyApp", "Todo with id: " + response.getData().getId());
-                         runOnUiThread(new Runnable() {
-                             @Override
-                             public void run() {
-                                 Toast.makeText(getApplicationContext(), "Recipe is added to your favorites", Toast.LENGTH_SHORT).show();
-                             }
-                         });
+                            Log.i("MyAmplifyApp", "Todo with id: " + response.getData().getId());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Recipe is added to your favorites", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         },
                         error -> Log.e("MyAmplifyApp", "Create failed", error)
                 );
 
             },3000);
         }
-}
+    }
 
-public List<Recipe> getRecipe(String name,String owner){
+    public List<Recipe> getRecipe(String name,String owner){
 
         List<Recipe> result=new ArrayList<>();
-    Amplify.API.query(
-            ModelQuery.list(Recipe.class, Recipe.NAME.contains(name).and(Recipe.OWNER.contains(owner))),
-            response -> {
-                for (Recipe recipe : response.getData()) {
-                    Log.i("MyAmplifyApp", recipe.getName());
-                    result.add(recipe);
-                }
-            },
-            error -> Log.e("MyAmplifyApp", "Query failure", error)
-    );
-    return result;
-}
+        Amplify.API.query(
+                ModelQuery.list(Recipe.class, Recipe.NAME.contains(name).and(Recipe.OWNER.contains(owner))),
+                response -> {
+                    for (Recipe recipe : response.getData()) {
+                        Log.i("MyAmplifyApp", recipe.getName());
+                        result.add(recipe);
+                    }
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
+        return result;
+    }
 }
