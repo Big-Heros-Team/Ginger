@@ -23,8 +23,8 @@ public class NoResultFoundActivity extends AppCompatActivity {
 
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
-        String file = "file:android_asset/sorry.gif";
-//        String file = "file:android_asset/no_result.gif";
+//        String file = "file:android_asset/sorry.gif";
+        String file = "file:android_asset/no_result.gif";
         webView.loadUrl(file);
 
         // go back to search

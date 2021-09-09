@@ -137,17 +137,17 @@
             android:layout_height="wrap_content"
             >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Instructions"
-            android:textColor="@color/black"
-            android:fontFamily="@font/gilroy_bold"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:textSize="@dimen/_19sdp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructions"
+                android:textColor="@color/black"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:textSize="@dimen/_19sdp"
+                />
 
-             <ImageButton
+            <ImageButton
                 android:id="@+id/youtubeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
