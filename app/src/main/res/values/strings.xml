@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Ginger</string>
+    <string name="background" />
+    <string name="ginger">Ginger</string>
+    <string name="is_here_to_help_you_conquer_the_kitchen_your_way">is here to help you conquer the kitchen, your way.</string>
+    <string name="register">Register</string>
+    <string name="design_sign_in">Sign in</string>
+    <string name="gingerApp">Ginger Application</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="already_registerd">Already Registerd ?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="loading">Loading ...</string>
+
+    <string name="twitterUsername">\@joeytribbiani</string>
+
 </resources>

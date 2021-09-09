@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MealDetailsActivity">
+
+
+        <androidx.percentlayout.widget.PercentRelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="@drawable/foreground"
+                android:scaleType="centerCrop" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@drawable/foreground_top"
+                app:layout_heightPercent="20%"
+
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/foreground_bottom"
+                app:layout_heightPercent="20%"
+
+                />
+
+
+            <TextView
+                android:id="@+id/mealName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/lobster"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sdp"
+
+                />
+
+
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/_35sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_heightPercent="15%" />
+
+            <TextView
+                android:id="@+id/cuisine"
+                android:layout_width="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/_35sdp"
+                android:layout_toRightOf="@+id/ingredients"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_heightPercent="15%"
+
+
+                />
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/cuisine"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_heightPercent="15%" />
+
+            <ImageButton
+                android:id="@+id/addToFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="111dp"
+                android:src="@drawable/ic_dollar"
+                android:tooltipText="Add to favorite" />
+        </androidx.percentlayout.widget.PercentRelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="Ingredients"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_19sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:orientation="vertical"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_rv_main_category" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="Instructions"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_19sdp" />
+
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_2sdp"
+            android:fontFamily="@font/gilroy_light"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:padding="@dimen/_2sdp"
+            android:textFontWeight="700"
+            android:textSize="@dimen/_14sdp"
+
+            />
+
+
+    </LinearLayout>
+
+</ScrollView>

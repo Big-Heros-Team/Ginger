@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/adamina</item>
+        <item>@font/bungee</item>
+        <item>@font/bungee_hairline</item>
+        <item>@font/dancing_script</item>
+        <item>@font/lobster</item>
+        <item>@font/merienda_one</item>
+        <item>@font/philosopher</item>
+    </array>
+</resources>
+
+
+
