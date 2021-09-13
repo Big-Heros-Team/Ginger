@@ -9,17 +9,17 @@
     android:background="@color/white"
     >
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-     android:layout_marginBottom="@dimen/_20sdp"
-    android:padding="@dimen/_4sdp"
-    android:text="Favorite Recipes"
-    android:textAlignment="center"
-    android:textColor="@color/black"
-    android:fontFamily="@font/lobster"
-    android:textSize="@dimen/_28sdp"
-    />
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/lobster"
+        android:padding="@dimen/_4sdp"
+        android:text="Favorite Recipes"
+        android:textAlignment="center"
+        android:textSize="@dimen/_30ssp"
+        android:textColor="#4A0000" />
 
 
     <androidx.recyclerview.widget.RecyclerView

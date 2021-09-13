@@ -121,23 +121,20 @@
         app:layout_constraintVertical_bias="0.353" />
 
 
-
     <TextView
         android:id="@+id/textfromSignInToReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="170dp"
         android:text="@string/register"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
-        android:textSize="19sp"
+        android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/signinBtn"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintStart_toStartOf="@+id/textView5" />
 
 
 
